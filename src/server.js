@@ -15,8 +15,7 @@ import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import PrettyError from 'pretty-error';
-
-// import httpProxy from 'http-proxy';
+import httpProxy from 'http-proxy';
 import { CookiesProvider } from 'react-cookie';
 import cookiesMiddleware from 'universal-cookie-express';
 import { SheetsRegistry } from 'react-jss/lib/jss';
@@ -39,18 +38,18 @@ import { setRuntimeVariable } from './actions/runtime';
 import config from './config';
 import theme from './materialUiTheme';
 
-// const proxy = httpProxy.createProxyServer({
-//   target: config.api.url,
-//   secure: false,
-// });
-// proxy.on('proxyReq', proxyReq => {
-//   if (process.env.NODE_ENV === 'production') {
-//     proxyReq.setHeader(
-//       'Host',
-//       process.env.API_HOST || 'domain.herokuapp.com', // todo
-//     );
-//   }
-// });
+const proxy = httpProxy.createProxyServer({
+  target: config.api.url,
+  secure: false,
+});
+proxy.on('proxyReq', proxyReq => {
+  if (process.env.NODE_ENV === 'production') {
+    proxyReq.setHeader(
+      'Host',
+      process.env.API_HOST || 'domain.herokuapp.com', // todo
+    );
+  }
+});
 
 process.on('unhandledRejection', (reason, p) => {
   console.error('Unhandled Rejection at:', p, 'reason:', reason);
@@ -79,9 +78,9 @@ app.set('trust proxy', config.trustProxy);
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 
-// app.use('/api', (req, res) => {
-//   proxy.web(req, res, { target: config.api.url });
-// });
+app.use('/api', (req, res) => {
+  proxy.web(req, res, { target: config.api.url });
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -162,7 +161,7 @@ app.get('*', async (req, res, next) => {
     //   </CookiesProvider>,
     // );
     data.children = ReactDOM.renderToString(
-      <CookiesProvider>
+      <CookiesProvider cookies={req.universalCookies}>
         <JssProvider
           registry={sheetsRegistry}
           generateClassName={generateClassName}

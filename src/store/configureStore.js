@@ -9,6 +9,7 @@ import createMiddleware from './middleware/clientMiddleware';
 
 export default function configureStore(initialState, helpersConfig) {
   const helpers = createHelpers(helpersConfig);
+  // console.log('---', helpersConfig);
   const middleware = [
     thunk.withExtraArgument(helpers),
     createMiddleware(helpers.fetch),
