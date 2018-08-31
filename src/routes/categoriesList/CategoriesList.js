@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Link from '../../components/Link';
 import s from './CategoriesList.css';
 import * as categoriesActions from '../../actions/categories';
 
@@ -27,15 +28,35 @@ class CategoriesList extends React.Component {
     const { resetCategories } = this.props;
     resetCategories();
   }
+  // renderSubcategories(item) {
+  //   if (item.id < 5) {
+  //     return (
+  //       <div>
+  //         {item.Subcategories.slice(0, 5).map((subitem, index) =>
+  //           <Link key={subitem.id} to={`/api/products/${subitem.id}?page=1`}> {(index >= 4) ? 'Show more' : subitem.name}</Link>)}
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // }
+
   render() {
-    // console.log(this.props);
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>CategoriesList:</h1>
-          {this.props.categories.map(item => (
-            <div className={s.categoryItem} key={item.id}> {item.name} </div>
-          ))}
+          {this.props.categories.slice(0, 5).map(item =>
+            <div className={s.categoryItem}>
+              <Link key={item.id} to={`/api/subcategories/${item.id}`}> {(item.id === 5) ? 'Show all categories' : item.name}</Link>
+              {
+                item.id < 5 ? 
+                  <div>
+                    {item.Subcategories.slice(0, 5).map((subitem, index) =>
+                      <Link key={subitem.id} to={`/api/products/${subitem.id}?page=1`}> {(index >= 4) ? 'Show more' : subitem.name}</Link>)}
+                  </div>
+                : 
+                null
+              }
+          </div>)}
         </div>
       </div>
     );

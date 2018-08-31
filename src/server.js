@@ -112,7 +112,7 @@ app.get('*', async (req, res, next) => {
     });
 
     const initialState = {
-      user: req.user || null,
+      // user: req.user || null,
     };
 
     const store = configureStore(initialState, {

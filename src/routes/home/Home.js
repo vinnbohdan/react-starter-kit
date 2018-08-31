@@ -7,21 +7,35 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Home.css';
+// import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Grid from '@material-ui/core/Grid';
+// import s from './Home.css';
 import CategoriesList from '../categoriesList/CategoriesList';
+import HotProductsList from '../hotProductsList/HotProductsList';
 
 class Home extends React.Component {
   render() {
     return (
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1>Home</h1>
+      <React.Fragment>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
           <CategoriesList />
-        </div>
-      </div>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <HotProductsList />
+        </Grid>
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(s)(Home);
+export default Home;
