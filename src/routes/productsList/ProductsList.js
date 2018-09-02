@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 // import s from './HotProductsList.css';
-import * as hotProductsActions from '../../actions/hotProducts';
+import * as allProductsActions from '../../actions/allProducts';
 import Product from '../product/Product';
 
 const styles = theme => ({
@@ -29,56 +29,55 @@ const styles = theme => ({
   },
 });
 
-class HotProductsList extends React.Component {
+class ProductsList extends React.Component {
   static propTypes = {
-    hotProducts: PropTypes.arrayOf(
+    allProducts: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
       }),
     ).isRequired,
-    getHotProducts: PropTypes.func.isRequired,
-    resetHotProducts: PropTypes.func.isRequired,
+    getAllProducts: PropTypes.func.isRequired,
+    resetAllProducts: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
-    const { getHotProducts } = this.props;
-    getHotProducts();
+    const { getAllProducts } = this.props;
+    getAllProducts();
   }
   componentWillUnmount() {
     // clear hotProducts's state when leave page
-    const { resetHotProducts } = this.props;
-    resetHotProducts();
+    const { resetAllProducts } = this.props;
+    resetAllProducts();
   }
   render() {
     return (
-        <GridList
-          cols={3}>
-          {this.props.hotProducts.map(item =>
-              <GridListTile key={item.id}>
-                <Product key={item.id}  name={item.name} cost={item.cost} />
-              </GridListTile>)}
-        </GridList>
+      <GridList
+        cols={3}>
+        {this.props.allProducts.map(item =>
+          <GridListTile key={item.id}>
+            <Product key={item.id}  name={item.name} cost={item.cost} />
+          </GridListTile>)}
+      </GridList>
     );
   }
 }
 
 const connectRedux = connect(
   state => ({
-    hotProducts: state.hotProducts.items,
-    loadingHotProducts: state.hotProducts.loading,
-    total: state.hotProducts.total,
-    error: state.hotProducts.error,
+    allProducts: state.allProducts.items,
+    loadingAllProducts: state.allProducts.loading,
+    total: state.allProducts.total,
+    error: state.allProducts.error,
   }),
   dispatch =>
     bindActionCreators(
       {
-        ...hotProductsActions,
+        ...allProductsActions,
       },
       dispatch,
     ),
 );
 // export default connectRedux(withStyles(s)(HotProductsList));
-export default connectRedux(withStyles(styles)(HotProductsList));
-
+export default connectRedux(withStyles(styles)(ProductsList));

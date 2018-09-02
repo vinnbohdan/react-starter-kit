@@ -8,10 +8,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/icons/ImportantDevices';
-import StarIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import CardHeader from '@material-ui/core/CardHeader/CardHeader';
 
 const styles = theme => ({
+  card: {
+    minWidth: 275,
+  },
   cardHeader: {
     backgroundColor: theme.palette.grey[200],
   },
@@ -37,19 +39,17 @@ class Product extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card className={this.props.classes.card}>
         <CardMedia image={<Icon />} title="{props.name}" />
         <CardHeader
           title={this.props.name}
           titleTypographyProps={{ align: 'center' }}
-          action={<StarIcon />}
           className={this.props.classes.cardHeader}
         />
         <CardContent className={this.props.classes.cardPricing}>
-          <Typography gutterBottom variant="headline" component="h2">
-            {this.props.name}
+          <Typography gutterBottom variant="headline" component="h1">
+            {this.props.cost} UAH
           </Typography>
-          <Typography component="p">{this.props.cost}</Typography>
         </CardContent>
         <CardActions className={this.props.classes.cardActions}>
           <Button size="small" color="primary">

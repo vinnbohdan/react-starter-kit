@@ -24,5 +24,12 @@
   width: 20%;
   display: block;
   float: left;
-  text-align: center;
+  text-align: left;
+  padding-top: 25px;
+}
+.subcategoryItem {
+  width: 100%;
+  display: grid;
+  text-align: left;
+  padding-left: 25px;
 }

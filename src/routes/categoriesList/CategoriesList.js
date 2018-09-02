@@ -28,32 +28,24 @@ class CategoriesList extends React.Component {
     const { resetCategories } = this.props;
     resetCategories();
   }
-  // renderSubcategories(item) {
-  //   if (item.id < 5) {
-  //     return (
-  //       <div>
-  //         {item.Subcategories.slice(0, 5).map((subitem, index) =>
-  //           <Link key={subitem.id} to={`/api/products/${subitem.id}?page=1`}> {(index >= 4) ? 'Show more' : subitem.name}</Link>)}
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // }
-
   render() {
     return (
       <div className={s.root}>
         <div className={s.container}>
           {this.props.categories.slice(0, 5).map(item =>
             <div className={s.categoryItem}>
-              <Link key={item.id} to={`/api/subcategories/${item.id}`}> {(item.id === 5) ? 'Show all categories' : item.name}</Link>
+              {(item.id === 5) ? <Link key={item.id} to="/api/categories/"> Show all categories </Link> : <Link key={item.id} to={`/api/subcategories/${item.id}`}> {item.name} </Link>}
               {
-                item.id < 5 ? 
-                  <div>
+                item.id < 5 ?
+                  <div className={s.subcategoryItem}>
                     {item.Subcategories.slice(0, 5).map((subitem, index) =>
-                      <Link key={subitem.id} to={`/api/products/${subitem.id}?page=1`}> {(index >= 4) ? 'Show more' : subitem.name}</Link>)}
+                      index >= 4 ?
+                        <Link key={subitem.id} to={`/api/subcategories/${item.id}`}> Show more </Link>
+                        :
+                        <Link key={subitem.id} to={`/api/products/${subitem.id}`}> {subitem.name} </Link>)
+                    }
                   </div>
-                : 
+                :
                 null
               }
           </div>)}

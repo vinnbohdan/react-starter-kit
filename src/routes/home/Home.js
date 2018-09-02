@@ -7,9 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import React from 'react';
-// import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Grid from '@material-ui/core/Grid';
-// import s from './Home.css';
 import CategoriesList from '../categoriesList/CategoriesList';
 import HotProductsList from '../hotProductsList/HotProductsList';
 
