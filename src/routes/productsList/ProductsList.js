@@ -40,7 +40,7 @@ class ProductsList extends React.Component {
     ).isRequired,
     getAllProducts: PropTypes.func.isRequired,
     resetAllProducts: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    // classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
     const { getAllProducts } = this.props;

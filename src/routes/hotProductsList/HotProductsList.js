@@ -40,7 +40,7 @@ class HotProductsList extends React.Component {
     ).isRequired,
     getHotProducts: PropTypes.func.isRequired,
     resetHotProducts: PropTypes.func.isRequired,
-    classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    // classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
     const { getHotProducts } = this.props;
