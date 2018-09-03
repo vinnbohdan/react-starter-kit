@@ -31,6 +31,7 @@ const styles = theme => ({
 
 class ProductsList extends React.Component {
   static propTypes = {
+    subcategoryId: PropTypes.number.isRequired,
     allProducts: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -43,8 +44,8 @@ class ProductsList extends React.Component {
     // classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
-    const { getAllProducts } = this.props;
-    getAllProducts();
+    const { getAllProducts, subcategoryId } = this.props;
+    getAllProducts(subcategoryId);
   }
   componentWillUnmount() {
     // clear hotProducts's state when leave page

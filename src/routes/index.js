@@ -22,7 +22,7 @@ const routes = {
     {
       path: '/products/:id',
       load: () =>
-        import(/* webpackChunkName: 'productsList' */ './productsList/index'),
+        import(/* webpackChunkName: 'productsList' */ './productsList'),
     },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {

@@ -5,11 +5,11 @@ import {
   RESET_ALLPRODUCTS,
 } from '../constants';
 
-export function getAllProducts() {
+export function getAllProducts(subcategoryId) {
   return {
     types: [GET_ALLPRODUCTS, GET_ALLPRODUCTS_SUCCESS, GET_ALLPRODUCTS_FAIL],
     promise: fetch =>
-      fetch(`/api/products/:id`, {
+      fetch(`/api/products/${subcategoryId}`, {
         method: 'GET',
       }),
   };
