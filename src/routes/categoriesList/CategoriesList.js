@@ -34,15 +34,15 @@ class CategoriesList extends React.Component {
         <div className={s.container}>
           {this.props.categories.slice(0, 5).map(item =>
             <div className={s.categoryItem}>
-              {(item.id === 5) ? <Link key={item.id} to="/api/categories/"> Show all categories </Link> : <Link key={item.id} to={`/api/subcategories/${item.id}`}> {item.name} </Link>}
+              {(item.id === 5) ? <Link key={item.id} to="/categories"> Show all categories </Link> : <Link key={item.id} to={`/subcategories/${item.id}`}> {item.name} </Link>}
               {
                 item.id < 5 ?
                   <div className={s.subcategoryItem}>
                     {item.Subcategories.slice(0, 5).map((subitem, index) =>
                       index >= 4 ?
-                        <Link key={subitem.id} to={`/api/subcategories/${item.id}`}> Show more </Link>
+                        <Link key={subitem.id} to={`/subcategories/${item.id}`}> Show more </Link>
                         :
-                        <Link key={subitem.id} to={`/api/products/${subitem.id}`}> {subitem.name} </Link>)
+                        <Link key={subitem.id} to={`/products/${subitem.id}`}> {subitem.name} </Link>)
                     }
                   </div>
                 :

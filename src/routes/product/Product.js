@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/icons/ImportantDevices';
+// import Icon from '@material-ui/icons/ImportantDevices';
 import CardHeader from '@material-ui/core/CardHeader/CardHeader';
 
 const styles = theme => ({
@@ -40,7 +40,6 @@ class Product extends React.Component {
   render() {
     return (
       <Card className={this.props.classes.card}>
-        <CardMedia image={<Icon />} title="{props.name}" />
         <CardHeader
           title={this.props.name}
           titleTypographyProps={{ align: 'center' }}
