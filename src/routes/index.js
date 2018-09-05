@@ -24,6 +24,16 @@ const routes = {
       load: () =>
         import(/* webpackChunkName: 'productsList' */ './productsList'),
     },
+    {
+      path: '/categories',
+      load: () =>
+        import(/* webpackChunkName: 'categoriesGrid' */ './categoriesGrid'),
+    },
+    {
+      path: '/subcategories/:id',
+      load: () =>
+        import(/* webpackChunkName: 'subcategoriesGrid' */ './subcategoriesGrid'),
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

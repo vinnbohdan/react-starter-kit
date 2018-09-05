@@ -24,7 +24,6 @@ class CategoriesList extends React.Component {
     getCategories();
   }
   componentWillUnmount() {
-    // clear category's state when leave page
     const { resetCategories } = this.props;
     resetCategories();
   }

@@ -7,9 +7,8 @@ import { bindActionCreators } from 'redux';
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-// import s from './HotProductsList.css';
-import * as allProductsActions from '../../actions/allProducts';
-import Product from '../product/Product';
+import * as allSubcategoriesActions from '../../actions/allSubcategories';
+import Subcategory from '../subcategory/Subcategory';
 
 const styles = theme => ({
   '@global': {
@@ -29,36 +28,34 @@ const styles = theme => ({
   },
 });
 
-class ProductsList extends React.Component {
+class SubcategoriesGrid extends React.Component {
   static propTypes = {
-    subcategoryId: PropTypes.number.isRequired,
-    allProducts: PropTypes.arrayOf(
+    categoryId: PropTypes.number.isRequired,
+    allSubcategories: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        cost: PropTypes.number.isRequired,
       }),
     ).isRequired,
-    getAllProducts: PropTypes.func.isRequired,
-    resetAllProducts: PropTypes.func.isRequired,
+    getAllSubcategories: PropTypes.func.isRequired,
+    resetAllSubcategories: PropTypes.func.isRequired,
     // classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
-    const { getAllProducts, subcategoryId } = this.props;
-    getAllProducts(subcategoryId);
+    const { getAllSubcategories, categoryId } = this.props;
+    getAllSubcategories(categoryId);
   }
   componentWillUnmount() {
-    // clear hotProducts's state when leave page
-    const { resetAllProducts } = this.props;
-    resetAllProducts();
+    const { resetAllSubcategories } = this.props;
+    resetAllSubcategories();
   }
   render() {
     return (
       <GridList
         cols={3}>
-        {this.props.allProducts.map(item =>
+        {this.props.allSubcategories.map(item =>
           <GridListTile key={item.id}>
-            <Product name={item.name} cost={item.cost} />
+            <Subcategory name={item.name} id={item.id}/>
           </GridListTile>)}
       </GridList>
     );
@@ -67,18 +64,17 @@ class ProductsList extends React.Component {
 
 const connectRedux = connect(
   state => ({
-    allProducts: state.allProducts.items,
-    loadingAllProducts: state.allProducts.loading,
-    total: state.allProducts.total,
-    error: state.allProducts.error,
+    allSubcategories: state.allSubcategories.items,
+    loadingAllSubcategories: state.allSubcategories.loading,
+    total: state.allSubcategories.total,
+    error: state.allSubcategories.error,
   }),
   dispatch =>
     bindActionCreators(
       {
-        ...allProductsActions,
+        ...allSubcategoriesActions,
       },
       dispatch,
     ),
 );
-// export default connectRedux(withStyles(s)(HotProductsList));
-export default connectRedux(withStyles(styles)(ProductsList));
+export default connectRedux(withStyles(styles)(SubcategoriesGrid));

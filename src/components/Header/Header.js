@@ -32,6 +32,9 @@ const styles = theme => ({
   margin: {
     margin: theme.spacing.unit,
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
 });
 
 class Header extends React.Component {
@@ -52,7 +55,9 @@ class Header extends React.Component {
             noWrap
             className={this.props.classes.toolbarTitle}
           >
-            Eliftech market
+            <Button href="/" className={this.props.classes.button}>
+              Eliftech market
+            </Button>
           </Typography>
           <IntegrationAutosuggest />
           <Button>Contacts</Button>
