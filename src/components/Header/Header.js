@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-import IntegrationAutosuggest from '../../routes/integrationAutosuggest/IntegrationAutosuggest';
+import AsyncSelectPromises from '../../routes/asyncSelectPromises/AsyncSelectPromises';
 
 const styles = theme => ({
   '@global': {
@@ -59,7 +59,7 @@ class Header extends React.Component {
               Eliftech market
             </Button>
           </Typography>
-          <IntegrationAutosuggest />
+          <AsyncSelectPromises />
           <Button>Contacts</Button>
           <Button color="primary" variant="outlined">
             Login
