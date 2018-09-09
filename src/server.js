@@ -46,7 +46,7 @@ proxy.on('proxyReq', proxyReq => {
   if (process.env.NODE_ENV === 'production') {
     proxyReq.setHeader(
       'Host',
-      process.env.API_HOST || 'domain.herokuapp.com', // todo
+      process.env.API_HOST || 'e-commerce-api2.herokuapp.com', // todo
     );
   }
 });

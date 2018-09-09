@@ -44,7 +44,7 @@ class Specification extends React.Component {
   componentDidMount() {
     const { getSpecifications, subcategoryId } = this.props;
     getSpecifications(subcategoryId);
-    // console.log(this.state);
+    console.log(this.state);
   }
   componentWillUnmount() {
     // clear hotProducts's state when leave page
@@ -53,11 +53,11 @@ class Specification extends React.Component {
   }
 
   handleChange = name => event => {
-    // console.log(event.target.checked);
-    // console.log(this.state);
+    console.log(event.target.checked);
+    console.log(this.state);
     this.setState({ [name]: event.target.checked });
-    // console.log(this.state);
-    // console.log([name]);
+    console.log(this.state);
+    console.log([name]);
   };
 
   render() {
@@ -77,9 +77,9 @@ class Specification extends React.Component {
               key={specValue}
               control={
                 <Checkbox
-                  // checked={this.state[specValue]}
+                  checked={this.state[specValue]}
                   onChange={this.handleChange(specValue)}
-                  value={specValue}
+                  value={!!specValue}
                 />
               }
               label={specValue}
