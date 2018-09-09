@@ -3,31 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from "@material-ui/core";
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-// import s from './HotProductsList.css';
+import Drawer from '@material-ui/core/Drawer';
 import * as allProductsActions from '../../actions/allProducts';
 import Product from '../product/Product';
-
-const styles = theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-});
+import Specification from '../specification/Specification';
+import styles from './styles';
 
 class ProductsList extends React.Component {
   static propTypes = {
@@ -41,7 +24,7 @@ class ProductsList extends React.Component {
     ).isRequired,
     getAllProducts: PropTypes.func.isRequired,
     resetAllProducts: PropTypes.func.isRequired,
-    // classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
   componentDidMount() {
     const { getAllProducts, subcategoryId } = this.props;
@@ -54,13 +37,25 @@ class ProductsList extends React.Component {
   }
   render() {
     return (
-      <GridList
-        cols={3}>
-        {this.props.allProducts.map(item =>
-          <GridListTile key={item.id}>
-            <Product name={item.name} cost={item.cost} />
-          </GridListTile>)}
-      </GridList>
+      <React.Fragment>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: this.props.classes.drawerPaper,
+          }}
+        >
+          <Specification subcategoryId={this.props.subcategoryId} />
+        </Drawer>
+        <main className={this.props.classes.content}>
+          <GridList
+            cols={3}>
+            {this.props.allProducts.map(item =>
+              <GridListTile key={item.id}>
+                <Product id={item.id} name={item.name} cost={item.cost} />
+              </GridListTile>)}
+          </GridList>
+        </main>
+      </React.Fragment>
     );
   }
 }
@@ -80,5 +75,4 @@ const connectRedux = connect(
       dispatch,
     ),
 );
-// export default connectRedux(withStyles(s)(HotProductsList));
 export default connectRedux(withStyles(styles)(ProductsList));

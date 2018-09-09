@@ -3,30 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import * as allSubcategoriesActions from '../../actions/allSubcategories';
 import Subcategory from '../subcategory/Subcategory';
-
-const styles = theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-});
 
 class SubcategoriesGrid extends React.Component {
   static propTypes = {
@@ -77,4 +57,4 @@ const connectRedux = connect(
       dispatch,
     ),
 );
-export default connectRedux(withStyles(styles)(SubcategoriesGrid));
+export default connectRedux(SubcategoriesGrid);

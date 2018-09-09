@@ -1,17 +1,17 @@
 import React from 'react';
 
 import Layout from '../../components/Layout';
-import ProductsList from './ProductsList';
+import ProductDetails from './ProductDetails';
 
 export default async function action(context) {
   // console.log('---', context);
-  const subcategoryId = Number(context.params.id);
+  const productId = Number(context.params.id);
   return {
-    chunks: ['productsList'],
+    chunks: ['productDetails'],
     title: 'React Starter Kit',
     component: (
       <Layout>
-        <ProductsList subcategoryId={subcategoryId} />
+        <ProductDetails productId={productId} />
       </Layout>
     ),
   };

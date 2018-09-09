@@ -9,28 +9,29 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { withStyles } from '@material-ui/core/styles';
 // external-global styles must be imported in your JS.
-import normalizeCss from 'normalize.css';
-import s from './Layout.css';
 import Header from '../Header';
 import Footer from '../Footer';
+import styles from './styles';
 
 class Layout extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
   render() {
     return (
-      <div>
+      <React.Fragment>
+        <CssBaseline />
         <Header />
-        {this.props.children}
+        <main className={this.props.classes.layout}>{this.props.children}</main>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default withStyles(normalizeCss, s)(Layout);
+export default withStyles(styles)(Layout);

@@ -21,16 +21,14 @@
 }
 
 .categoryItem {
-  width: 20%;
   display: block;
   float: left;
-  text-align: left;
   padding-top: 25px;
+  padding-right: 19px;
 }
 
 .subcategoryItem {
   width: 100%;
   display: grid;
-  text-align: left;
   padding-left: 25px;
 }

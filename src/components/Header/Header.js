@@ -14,28 +14,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import styles from './styles';
 
 import AsyncSelectPromises from '../../routes/asyncSelectPromises/AsyncSelectPromises';
-
-const styles = theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  appBar: {
-    position: 'relative',
-  },
-  toolbarTitle: {
-    flex: 1,
-  },
-  margin: {
-    margin: theme.spacing.unit,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-});
 
 class Header extends React.Component {
   static propTypes = {

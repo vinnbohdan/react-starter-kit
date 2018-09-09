@@ -5,7 +5,7 @@ import SubcategoriesGrid from './SubcategoriesGrid';
 
 export default async function action(context) {
   // console.log('---', context);
-  const categoryId = context.params.id;
+  const categoryId = Number(context.params.id);
   return {
     chunks: ['subcategoriesGrid'],
     title: 'Subcategories',

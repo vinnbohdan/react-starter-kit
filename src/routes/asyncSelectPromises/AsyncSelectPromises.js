@@ -10,8 +10,6 @@ export default class AsyncSelectPromises extends Component<*, State> {
   };
   state = { value: null };
   getNames = inputValue => {
-    // const { fetch } = this.context;
-
     const params = {
       // sort: '-createDate',
       page: 1,
@@ -56,6 +54,17 @@ export default class AsyncSelectPromises extends Component<*, State> {
         getOptionValue={option => option.id}
         value={this.state.value}
         loadOptions={this.getNames}
+        theme={theme => ({
+          ...theme,
+          borderRadius: 100,
+          width: 250,
+          colors: {
+            ...theme.colors,
+            text: 'orangered',
+            primary25: 'hotpink',
+            primary: 'white',
+          },
+        })}
       />
     );
   }

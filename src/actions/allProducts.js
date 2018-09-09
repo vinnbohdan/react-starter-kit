@@ -9,7 +9,7 @@ export function getAllProducts(subcategoryId) {
   return {
     types: [GET_ALLPRODUCTS, GET_ALLPRODUCTS_SUCCESS, GET_ALLPRODUCTS_FAIL],
     promise: fetch =>
-      fetch(`/api/products/${subcategoryId}`, {
+      fetch(`/api/subcategories/${subcategoryId}/products`, {
         method: 'GET',
       }),
   };

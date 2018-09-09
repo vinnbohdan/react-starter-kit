@@ -20,19 +20,24 @@ const routes = {
       load: () => import(/* webpackChunkName: 'home' */ './home'),
     },
     {
-      path: '/products/:id',
-      load: () =>
-        import(/* webpackChunkName: 'productsList' */ './productsList'),
-    },
-    {
       path: '/categories',
       load: () =>
         import(/* webpackChunkName: 'categoriesGrid' */ './categoriesGrid'),
     },
     {
+      path: '/products/:id',
+      load: () =>
+        import(/* webpackChunkName: 'productDetails' */ './productDetails'),
+    },
+    {
       path: '/subcategories/:id',
       load: () =>
         import(/* webpackChunkName: 'subcategoriesGrid' */ './subcategoriesGrid'),
+    },
+    {
+      path: '/subcategories/:id/products',
+      load: () =>
+        import(/* webpackChunkName: 'productsList' */ './productsList'),
     },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {

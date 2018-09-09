@@ -3,31 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-// import s from './HotProductsList.css';
 import * as hotProductsActions from '../../actions/hotProducts';
 import Product from '../product/Product';
-
-const styles = theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-      width: 900,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-});
 
 class HotProductsList extends React.Component {
   static propTypes = {
@@ -57,7 +36,7 @@ class HotProductsList extends React.Component {
           cols={3}>
           {this.props.hotProducts.map(item =>
               <GridListTile key={item.id}>
-                <Product key={item.id}  name={item.name} cost={item.cost} />
+                <Product key={item.id}  id={item.id} name={item.name} cost={item.cost} />
               </GridListTile>)}
         </GridList>
     );
@@ -79,6 +58,5 @@ const connectRedux = connect(
       dispatch,
     ),
 );
-// export default connectRedux(withStyles(s)(HotProductsList));
-export default connectRedux(withStyles(styles)(HotProductsList));
+export default connectRedux(HotProductsList);
 

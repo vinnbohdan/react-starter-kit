@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Button from '@material-ui/core/Button';
 import Link from '../../components/Link';
 import s from './CategoriesList.css';
 import * as categoriesActions from '../../actions/categories';
+
+const itemsLimit = 5;
 
 class CategoriesList extends React.Component {
   static propTypes = {
@@ -31,24 +34,30 @@ class CategoriesList extends React.Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          {this.props.categories.slice(0, 5).map(item =>
+          {this.props.categories.slice(0, itemsLimit).map(item =>
             <div key={item.id} className={s.categoryItem}>
-              {(item.id === 5) ? <Link to="/categories"> Show all categories </Link> : <Link key={item.id} to={`/subcategories/${item.id}`}> {item.name} </Link>}
               {
-                item.id < 5 ?
+                item.id === itemsLimit ?
+                  <Button component={Link} to="/categories" size="small" color="primary"> Show all categories </Button>
+                  :
+                  <Button component={Link} to={`/subcategories/${item.id}`} size="small" color="primary"> {item.name} </Button>
+              }
+              {
+                item.id < itemsLimit ?
                   <div className={s.subcategoryItem}>
-                    {item.Subcategories.slice(0, 5).map((subitem, index) =>
-                      index >= 4 ?
-                        <Link key={subitem.id} to={`/subcategories/${item.id}`}> Show more </Link>
+                    {item.Subcategories.slice(0, itemsLimit).map((subitem, index) =>
+                      index >= itemsLimit - 1 ?
+                        <Button key={subitem.id} component={Link} to={`/subcategories/${item.id}`} size="small" color="primary"> Show more </Button>
                         :
-                        <Link key={subitem.id} to={`/products/${subitem.id}`}> {subitem.name} </Link>)
+                        <Button key={subitem.id} component={Link} to={`/subcategories/${subitem.id}/products`} size="small" color="primary"> {subitem.name} </Button>)
                     }
                   </div>
-                :
-                null
+                  :
+                  null
               }
-          </div>)}
-        </div>
+            </div>
+          )}
+          </div>
       </div>
     );
   }
