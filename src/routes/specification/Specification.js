@@ -10,15 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import connect from 'react-redux/es/connect/connect';
 import { bindActionCreators } from 'redux';
 import * as specificationsActions from '../../actions/specifications';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing.unit * 3,
-  },
-});
+import styles from './styles';
 
 class Specification extends React.Component {
   static propTypes = {
@@ -34,32 +26,28 @@ class Specification extends React.Component {
     classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
+  state = {
+    isChecked: false,
+  };
+
   componentDidMount() {
     const { getSpecifications, subcategoryId } = this.props;
     getSpecifications(subcategoryId);
-    this.props.specifications.map(specName =>
-      specName.value.map(specValue => this.setState({ [specValue]: false })),
-    );
-    // console.log(this.state);
   }
   componentWillUnmount() {
-    // clear hotProducts's state when leave page
     const { resetSpecifications } = this.props;
     resetSpecifications();
   }
 
-  handleChange = name => event => {
-    // console.log(event.target.checked);
-    // console.log(this.state);
-    this.setState({ [name]: event.target.checked });
-    // console.log(this.state);
-    // console.log([name]);
+  handleChange = () => {
+    this.setState(state => ({
+      isChecked: !state.isChecked,
+    }));
+    // console.log(this.state.isChecked);
   };
 
   render() {
-    // console.log(this.state);
     const { classes } = this.props;
-    // const { gilad, jason, antoine } = this.state;
     return this.props.specifications.map(specName => (
       <FormControl
         key={specName.key}
@@ -73,7 +61,7 @@ class Specification extends React.Component {
               key={specValue}
               control={
                 <Checkbox
-                  checked={!!this.state[specValue]}
+                  checked={this.state.isChecked}
                   onChange={this.handleChange(specValue)}
                   value={specValue}
                 />
