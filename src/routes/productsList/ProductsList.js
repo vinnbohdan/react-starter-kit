@@ -9,7 +9,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Drawer from '@material-ui/core/Drawer';
 import * as allProductsActions from '../../actions/allProducts';
 import Product from '../product/Product';
-import Specification from '../specification/Specification';
+// import Specification from '../specification/Specification';
 import styles from './styles';
 
 class ProductsList extends React.Component {
@@ -44,7 +44,7 @@ class ProductsList extends React.Component {
             paper: this.props.classes.drawerPaper,
           }}
         >
-          <Specification subcategoryId={this.props.subcategoryId} />
+          {/* <Specification subcategoryId={this.props.subcategoryId} /> */}
         </Drawer>
         <main className={this.props.classes.content}>
           <GridList

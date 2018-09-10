@@ -39,6 +39,15 @@ const routes = {
       load: () =>
         import(/* webpackChunkName: 'productsList' */ './productsList'),
     },
+    {
+      path: '/shoppingCart',
+      load: () =>
+        import(/* webpackChunkName: 'shoppingCart' */ './shoppingCart'),
+    },
+    {
+      path: '/checkOut',
+      load: () => import(/* webpackChunkName: 'checkOut' */ './checkOut'),
+    },
     // Wildcard routes, e.g. { path: '(.*)', ... } (must go last)
     {
       path: '(.*)',

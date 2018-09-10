@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button/Button";
 import TextField from "@material-ui/core/TextField";
 import NumberFormat from 'react-number-format';
 import * as productDetailsActions from '../../actions/productDetail';
+import Link from '../../components/Link';
 import styles from './styles';
 
 function NumberFormatCustom(props) {
@@ -56,13 +57,16 @@ class ProductDetails extends React.Component {
     resetproductDetails: PropTypes.func.isRequired,
   };
   state = {
-    orderquantaty: 1,
+    // newItem: "",
+    list: JSON.parse(localStorage.getItem('list')) || [],
+    itemsquantity: 1,
   };
 
   componentDidMount() {
     const { getproductDetails, productId } = this.props;
     getproductDetails(productId);
   }
+
   componentWillUnmount() {
     // clear hotProducts's state when leave page
     const { resetproductDetails } = this.props;
@@ -75,8 +79,42 @@ class ProductDetails extends React.Component {
     });
   };
 
+  handleClick = (_id, _name, _price, _quantity) => ()=> {
+    this.setState({ ordered: this.state.ordered + parseInt(_quantity, 10) });
+    // create a new item
+    const newItem = {id: _id, name: _name, price: _price, quantity: _quantity};
+    // copy current list of items
+    const list = [...this.state.list];
+    // add the new item to the list
+    // console.log('get list', list);
+    let newElem = true;
+
+    if (!Array.isArray(list) || !list.length) {
+      list.push(newItem);
+      // console.log('push to empty', this.state);
+    } else {
+      list.forEach( elem => {
+        // console.log('elem.id', elem.id);
+        if (elem.id === _id){
+          elem.quantity = parseInt(_quantity, 10) + parseInt(elem.quantity, 10); // eslint-disable-line
+          // console.log('changed quant', list);
+          newElem = false;
+        }
+      });
+      if(newElem){
+        list.push(newItem);
+        // console.log('added new', list);
+      }
+    }
+    // update state with new list, reset the new item input
+    this.setState({list}); // , newItem: ""
+    localStorage.setItem("list", JSON.stringify(list));
+    localStorage.setItem("newItem", "");
+    // console.log('this is:', localStorage);
+  };
+
   render() {
-    return (
+      return (
       <div>
         {this.props.productDetails.map(item =>
         <GridList key={item.id}>
@@ -101,8 +139,8 @@ class ProductDetails extends React.Component {
               <GridListTile>
                 <TextField
                   id="number"
-                  defaultValue={this.state.orderquantaty}
-                  onChange={this.handleChange('orderquantaty')}
+                  defaultValue={this.state.itemsquantity}
+                  onChange={this.handleChange('itemsquantity')}
                   type="number"
                   className={this.props.classes.textField}
                   inputProps={{ min: "1", max: item.quantity, step: "1" }}
@@ -110,7 +148,7 @@ class ProductDetails extends React.Component {
                 />
                 <TextField
                   className={this.props.classes.formControl}
-                  value={item.cost * this.state.orderquantaty}
+                  value={item.cost * this.state.itemsquantity}
                   onChange={this.handleChange('numberformat')}
                   id="formatted-numberformat-input"
                   InputProps={{
@@ -119,13 +157,24 @@ class ProductDetails extends React.Component {
                 />
               </GridListTile>
               <GridListTile>
-                <Button size="large" variant="contained" color="secondary">
-                  Buy
+                <Button
+                  onClick={this.handleClick(item.id, item.name, item.cost, this.state.itemsquantity)}
+                  size="large"
+                  variant="contained"
+                  color="secondary">
+                    Add to cart
+                </Button>
+                <Button
+                  component={Link}
+                  to='/shoppingCart'
+                  size="large"
+                  variant="contained"
+                  color="secondary">
+                  To cart
                 </Button>
               </GridListTile>
             </GridList>
           </GridListTile>
-
         </GridList>
         )}
       </div>

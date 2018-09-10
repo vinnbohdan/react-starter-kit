@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import categories from './categories';
 import hotProducts from './hotProducts';
 import allProducts from './allProducts';
@@ -17,4 +18,5 @@ export default combineReducers({
   allSubcategories,
   productDetails,
   specifications,
+  form: formReducer,
 });

@@ -34,17 +34,13 @@ class Specification extends React.Component {
     classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { getSpecifications, subcategoryId } = this.props;
     getSpecifications(subcategoryId);
     this.props.specifications.map(specName =>
       specName.value.map(specValue => this.setState({ [specValue]: false })),
     );
-  }
-  componentDidMount() {
-    const { getSpecifications, subcategoryId } = this.props;
-    getSpecifications(subcategoryId);
-    console.log(this.state);
+    // console.log(this.state);
   }
   componentWillUnmount() {
     // clear hotProducts's state when leave page
@@ -53,11 +49,11 @@ class Specification extends React.Component {
   }
 
   handleChange = name => event => {
-    console.log(event.target.checked);
-    console.log(this.state);
+    // console.log(event.target.checked);
+    // console.log(this.state);
     this.setState({ [name]: event.target.checked });
-    console.log(this.state);
-    console.log([name]);
+    // console.log(this.state);
+    // console.log([name]);
   };
 
   render() {
@@ -77,9 +73,9 @@ class Specification extends React.Component {
               key={specValue}
               control={
                 <Checkbox
-                  checked={this.state[specValue]}
+                  checked={!!this.state[specValue]}
                   onChange={this.handleChange(specValue)}
-                  value={!!specValue}
+                  value={specValue}
                 />
               }
               label={specValue}
