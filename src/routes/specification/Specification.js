@@ -27,7 +27,7 @@ class Specification extends React.Component {
   };
 
   state = {
-    isChecked: false,
+    isChecked: {},
   };
 
   componentDidMount() {
@@ -39,14 +39,18 @@ class Specification extends React.Component {
     resetSpecifications();
   }
 
-  handleChange = () => {
-    this.setState(state => ({
-      isChecked: !state.isChecked,
-    }));
+  handleChange = specValue => () => {
+    // console.log('---');
+    const isChecked = this.state.isChecked || {};
+    isChecked[specValue] = !isChecked[specValue];
+    this.setState({
+      isChecked,
+    });
     // console.log(this.state.isChecked);
   };
 
   render() {
+    // console.log(this.state);
     const { classes } = this.props;
     return this.props.specifications.map(specName => (
       <FormControl
@@ -61,7 +65,9 @@ class Specification extends React.Component {
               key={specValue}
               control={
                 <Checkbox
-                  checked={this.state.isChecked}
+                  color="primary"
+                  checked={this.state.isChecked[specValue] || false}
+                  name={specValue}
                   onChange={this.handleChange(specValue)}
                   value={specValue}
                 />

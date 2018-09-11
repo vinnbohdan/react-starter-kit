@@ -23,11 +23,9 @@ class ShoppingCart extends React.Component {
 
   handleClick = id => () => {
     // console.log('id', id);
-    let listItems = [...this.state.list];
+    const listItems = [...this.state.list];
     // console.log('listItems', listItems);
-    if (!Array.isArray(listItems) || !listItems.length) {
-      listItems = [];
-    } else {
+    if (listItems.length) {
       const updatedList = listItems.filter(item => item.id !== id);
       // console.log('updatedList', updatedList);
 

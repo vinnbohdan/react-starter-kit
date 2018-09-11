@@ -14,7 +14,6 @@ import deepForceUpdate from 'react-deep-force-update';
 import queryString from 'query-string';
 import { createPath } from 'history/PathUtils';
 import { CookiesProvider } from 'react-cookie';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './components/App';
 import createFetch from './createFetch';
@@ -23,8 +22,6 @@ import history from './history';
 import { updateMeta } from './DOMUtils';
 import router from './router';
 import theme from './materialUiTheme';
-
-injectTapEventPlugin();
 
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html

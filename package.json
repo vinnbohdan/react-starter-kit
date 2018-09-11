@@ -6,12 +6,7 @@
     "node": ">=6.5 <=9",
     "npm": ">=3.10"
   },
-  "browserslist": [
-    ">1%",
-    "last 4 versions",
-    "Firefox ESR",
-    "not ie < 9"
-  ],
+  "browserslist": [">1%", "last 4 versions", "Firefox ESR", "not ie < 9"],
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.42",
     "@material-ui/core": "^1.5.1",
@@ -22,6 +17,7 @@
     "classnames": "^2.2.5",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.3",
+    "emotion-server": "^9.2.8",
     "express": "^4.16.3",
     "history": "^4.7.2",
     "http-proxy": "^1.17.0",
@@ -40,7 +36,6 @@
     "react-number-format": "^3.5.2",
     "react-redux": "^5.0.6",
     "react-select": "^2.0.0",
-    "react-tap-event-plugin": "^3.0.3",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.4.2",
@@ -133,18 +128,9 @@
     "webpack-node-externals": "^1.6.0"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --no-ignore --fix",
-      "git add --force"
-    ],
-    "*.{json,md,graphql}": [
-      "prettier --write",
-      "git add --force"
-    ],
-    "*.{css,less,styl,scss,sass,sss}": [
-      "stylelint --fix",
-      "git add --force"
-    ]
+    "*.{js,jsx}": ["eslint --no-ignore --fix", "git add --force"],
+    "*.{json,md,graphql}": ["prettier --write", "git add --force"],
+    "*.{css,less,styl,scss,sass,sss}": ["stylelint --fix", "git add --force"]
   },
   "scripts": {
     "precommit": "lint-staged",
@@ -165,6 +151,7 @@
     "render": "babel-node tools/run render",
     "serve": "babel-node tools/run runServer",
     "start": "babel-node tools/run start",
-    "heroku-prebuild": "NODE_ENV=development npm i -g node-gyp-install pm2 babel-cli babel-polyfill babel-register gulp-cli && node-gyp-install && yarn && yarn build --release"
+    "heroku-prebuild":
+      "NODE_ENV=development npm i -g node-gyp-install pm2 babel-cli babel-polyfill babel-register gulp-cli && node-gyp-install && yarn && yarn build --release"
   }
 }

@@ -24,7 +24,7 @@ import {
   MuiThemeProvider,
   createGenerateClassName,
 } from '@material-ui/core/styles';
-
+import { renderStylesToString } from 'emotion-server';
 import App from './components/App';
 import Html from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -160,17 +160,19 @@ app.get('*', async (req, res, next) => {
     //     </JssProvider>
     //   </CookiesProvider>,
     // );
-    data.children = ReactDOM.renderToString(
-      <CookiesProvider cookies={req.universalCookies}>
-        <JssProvider
-          registry={sheetsRegistry}
-          generateClassName={generateClassName}
-        >
-          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-            <App context={context}>{route.component}</App>
-          </MuiThemeProvider>
-        </JssProvider>
-      </CookiesProvider>,
+    data.children = renderStylesToString(
+      ReactDOM.renderToString(
+        <CookiesProvider cookies={req.universalCookies}>
+          <JssProvider
+            registry={sheetsRegistry}
+            generateClassName={generateClassName}
+          >
+            <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+              <App context={context}>{route.component}</App>
+            </MuiThemeProvider>
+          </JssProvider>
+        </CookiesProvider>,
+      ),
     );
     data.styles = [
       { id: 'jss-server-side', cssText: sheetsRegistry.toString() },

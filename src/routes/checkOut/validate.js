@@ -121,8 +121,8 @@ export default values => {
   if (!values.cardNumber || !values.cardNumber.trim()) {
     errors.cardNumber = 'Required';
   }
-  if (values.cardNumber && values.cardNumber.length !== 12) {
-    errors.cardNumber = 'Invalid phone number, must be 12 digits';
+  if (values.cardNumber && values.cardNumber.length !== 16) {
+    errors.cardNumber = 'Invalid phone number, must be 16 digits';
   }
   if (values.cardNumber && isNaN(Number(values.cardNumber))) {
     errors.cardNumber = 'Must be a number';
