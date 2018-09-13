@@ -1,41 +1,41 @@
 export default values => {
   const errors = {};
 
-  if (!values.firstName || !values.firstName.trim()) {
-    errors.firstName = 'Required';
+  if (!values.first_name || !values.first_name.trim()) {
+    errors.first_name = 'Required';
   }
-  if (values.firstName && values.firstName.length > 20) {
-    errors.firstName = 'Must be 20 characters or less';
+  if (values.first_name && values.first_name.length > 20) {
+    errors.first_name = 'Must be 20 characters or less';
   }
-  if (values.firstName && values.firstName.length < 2) {
-    errors.firstName = 'Must be Must be 2 characters or more';
-  }
-  if (
-    values.firstName &&
-    /* eslint-disable */
-    /[^a-zA-Z0-9 ]/i.test(  // eslint-disable-line
-      values.firstName,
-    )
-  ) {
-    errors.firstName = 'Only alphanumeric characters';
-  }
-  if (!values.lastName || !values.lastName.trim()) {
-    errors.lastName = 'Required';
-  }
-  if (values.lastName && values.lastName.length > 20) {
-    errors.lastName = 'Must be 20 characters or less';
-  }
-  if (values.lastName && values.lastName.length < 2) {
-    errors.lastName = 'Must be Must be 2 characters or more';
+  if (values.first_name && values.first_name.length < 2) {
+    errors.first_name = 'Must be Must be 2 characters or more';
   }
   if (
-    values.lastName &&
+    values.first_name &&
     /* eslint-disable */
     /[^a-zA-Z0-9 ]/i.test(  // eslint-disable-line
-      values.lastName,
+      values.first_name,
     )
   ) {
-    errors.lastName = 'Only alphanumeric characters';
+    errors.first_name = 'Only alphanumeric characters';
+  }
+  if (!values.last_name || !values.last_name.trim()) {
+    errors.last_name = 'Required';
+  }
+  if (values.last_name && values.last_name.length > 20) {
+    errors.last_name = 'Must be 20 characters or less';
+  }
+  if (values.last_name && values.last_name.length < 2) {
+    errors.last_name = 'Must be Must be 2 characters or more';
+  }
+  if (
+    values.last_name &&
+    /* eslint-disable */
+    /[^a-zA-Z0-9 ]/i.test(  // eslint-disable-line
+      values.last_name,
+    )
+  ) {
+    errors.last_name = 'Only alphanumeric characters';
   }
   if (!values.address || !values.address.trim()) {
     errors.address = 'Required';
@@ -77,28 +77,28 @@ export default values => {
     errors.city = 'Only alphanumeric characters';
   }
   if (
-    values.phoneNumber &&
+    values.phone &&
     /* eslint-disable */
     !/^(0|[1-9][0-9]{9})$/i.test(  // eslint-disable-line
-      values.phoneNumber,
+      values.phone,
     )
   ) {
-    errors.phoneNumber = 'Invalid phone number, must be 10 digits';
+    errors.phone = 'Invalid phone number, must be 10 digits';
   }
-  if (!values.phoneNumber || !values.phoneNumber.trim()) {
-    errors.phoneNumber = 'Required';
+  if (!values.phone || !values.phone.trim()) {
+    errors.phone = 'Required';
   }
-  if (!values.zip || !values.zip.trim()) {
-    errors.zip = 'Required';
+  if (!values.postcode || !values.postcode.trim()) {
+    errors.postcode = 'Required';
   }
-  if (values.zip && values.zip.length > 10) {
-    errors.zip = 'Must be 10 characters or less';
+  if (values.postcode && values.postcode.length > 10) {
+    errors.postcode = 'Must be 10 characters or less';
   }
-  if (values.zip && values.zip.length < 6) {
-    errors.zip = 'Must be 6 characters or more';
+  if (values.postcode && values.postcode.length < 5) {
+    errors.postcode = 'Must be 5 characters or more';
   }
-  if (values.zip && isNaN(Number(values.zip))) {
-    errors.zip = 'Must be a number';
+  if (values.postcode && isNaN(Number(values.postcode))) {
+    errors.postcode = 'Must be a number';
   }
   if (!values.country || !values.country.trim()) {
     errors.country = 'Required';

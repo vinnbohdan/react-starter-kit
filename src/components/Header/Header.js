@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import styles from './styles';
-// import CartBadge from '../../routes/cartBadge/CartBadge';
+import CartBadge from '../../routes/cartBadge/CartBadge';
 
 import AsyncSelectPromises from '../../routes/asyncSelectPromises/AsyncSelectPromises';
 
@@ -42,7 +42,7 @@ class Header extends React.Component {
             </Button>
           </Typography>
           <AsyncSelectPromises />
-          {/* <CartBadge /> */}
+          <CartBadge />
           <Button>Contacts</Button>
           <Button color="primary" variant="outlined">
             Login

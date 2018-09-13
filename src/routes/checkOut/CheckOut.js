@@ -10,46 +10,55 @@ import { TextField } from 'redux-form-material-ui';
 import {
   Field,
   reduxForm,
-  // SubmissionError,
+  SubmissionError,
   propTypes as reduxFormPropTypes,
 } from 'redux-form';
 import validate from './validate';
+// import asyncValidate from './asyncValidate';
 import styles from './style';
+import history from '../../history';
 
 class Checkout extends React.Component {
   static propTypes = {
     ...reduxFormPropTypes,
   };
-  handleSubmit = () => {
-    // console.log('---data', data);
-    // return this.context
-    //   .fetch('/api/auth/login', {
-    //     method: 'POST',
-    //     body: JSON.stringify(data),
-    //   })
-    //   .catch(err => {
-    //     throw new SubmissionError({ _error: err && err.message });
-    //   })
-    //   .then(res =>
-    //     res.json().then(resJson => {
-    //       if (!res.ok) {
-    //         if (resJson.message) {
-    //           throw new SubmissionError({ _error: resJson.message });
-    //         }
-    //         throw new SubmissionError(resJson);
-    //       }
-    //       return resJson;
-    //     }),
-    //   )
-    //   .then(token => {
-    //     cookies.set('token', token.token, { path: '/' }); we save token in cookies instead of local storage for correct routing with server side server to prevent log out when user goes from one page to another
-    //     history.push('/');
-    //   });
+  static contextTypes = {
+    fetch: PropTypes.func,
+  };
+
+  submit = data => {
+    data.list = localStorage.getItem('list'); // eslint-disable-line
+    // console.log(data);
+
+    return this.context
+      .fetch('/api/checkouts', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+      .catch(err => {
+        throw new SubmissionError({ _error: err && err.message });
+      })
+      .then(res =>
+        res.json().then(resJson => {
+          if (!res.ok) {
+            if (resJson.message) {
+              throw new SubmissionError({ _error: resJson.message });
+            }
+            throw new SubmissionError(resJson);
+          }
+          return resJson;
+        }),
+      )
+      .then(() => {
+        // console.log(result);
+        localStorage.clear();
+        history.push('/');
+      });
   };
 
   render() {
     const { classes } = this.props;
-    const { handleSubmit, submitting, error } = this.props;
+    const { handleSubmit, pristine, submitting, error } = this.props;
 
     return (
       <React.Fragment>
@@ -61,12 +70,12 @@ class Checkout extends React.Component {
             </Typography>
             <React.Fragment>
               <React.Fragment>
-                <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <form autoComplete="off">
                   <Grid container spacing={24}>
                     <Grid item xs={12} sm={6}>
                       <Field
                         required
-                        name="firstName"
+                        name="first_name"
                         type="text"
                         label="First name"
                         margin="dense"
@@ -77,7 +86,7 @@ class Checkout extends React.Component {
                     <Grid item xs={12} sm={6}>
                       <Field
                         required
-                        name="lastName"
+                        name="last_name"
                         type="text"
                         label="Last name"
                         margin="dense"
@@ -98,6 +107,7 @@ class Checkout extends React.Component {
                     </Grid>
                     <Grid item xs={12}>
                       <Field
+                        required
                         name="email"
                         type="email"
                         label="Email"
@@ -120,7 +130,7 @@ class Checkout extends React.Component {
                     <Grid item xs={12} sm={6}>
                       <Field
                         required
-                        name="phoneNumber"
+                        name="phone"
                         type="phoneNumber"
                         label="Phone number"
                         margin="dense"
@@ -131,7 +141,7 @@ class Checkout extends React.Component {
                     <Grid item xs={12} sm={6}>
                       <Field
                         required
-                        name="zip"
+                        name="postcode"
                         type="text"
                         label="Zip / Postal code"
                         margin="dense"
@@ -174,7 +184,8 @@ class Checkout extends React.Component {
                     color="primary"
                     className={classes.button}
                     type="submit"
-                    disabled={submitting}
+                    disabled={pristine || submitting}
+                    onClick={handleSubmit(this.submit)}
                   >
                     Place order
                   </Button>
@@ -195,6 +206,7 @@ Checkout.propTypes = {
 const createReduxForm = reduxForm({
   form: 'loginForm',
   validate,
+  // asyncValidate,
 });
 
 export default createReduxForm(withStyles(styles)(Checkout));
