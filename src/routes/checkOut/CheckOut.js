@@ -14,7 +14,7 @@ import {
   propTypes as reduxFormPropTypes,
 } from 'redux-form';
 import validate from './validate';
-// import asyncValidate from './asyncValidate';
+import asyncValidate from './asyncValidate';
 import styles from './style';
 import history from '../../history';
 
@@ -160,17 +160,6 @@ class Checkout extends React.Component {
                         fullWidth
                       />
                     </Grid>
-                    <Grid item xs={12}>
-                      <Field
-                        required
-                        name="cardNumber"
-                        type="text"
-                        label="Card number"
-                        margin="dense"
-                        component={TextField}
-                        fullWidth
-                      />
-                    </Grid>
                   </Grid>
                 </form>
                 <div className={classes.buttons}>
@@ -206,7 +195,8 @@ Checkout.propTypes = {
 const createReduxForm = reduxForm({
   form: 'loginForm',
   validate,
-  // asyncValidate,
+  asyncValidate,
+  asyncBlurFields: ['email'],
 });
 
 export default createReduxForm(withStyles(styles)(Checkout));

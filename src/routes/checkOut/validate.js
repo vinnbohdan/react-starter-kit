@@ -76,17 +76,14 @@ export default values => {
   ) {
     errors.city = 'Only alphanumeric characters';
   }
-  if (
-    values.phone &&
-    /* eslint-disable */
-    !/^(0|[1-9][0-9]{9})$/i.test(  // eslint-disable-line
-      values.phone,
-    )
-  ) {
-    errors.phone = 'Invalid phone number, must be 10 digits';
-  }
   if (!values.phone || !values.phone.trim()) {
     errors.phone = 'Required';
+  }
+  if (values.phone && values.phone.length !== 10) {
+    errors.phone = 'Invalid phone number, must be 10 digits';
+  }
+  if (values.phone && isNaN(Number(values.phone))) {
+    errors.phone = 'Must be a number';
   }
   if (!values.postcode || !values.postcode.trim()) {
     errors.postcode = 'Required';
@@ -117,15 +114,6 @@ export default values => {
     )
   ) {
     errors.country = 'Only alphanumeric characters';
-  }
-  if (!values.cardNumber || !values.cardNumber.trim()) {
-    errors.cardNumber = 'Required';
-  }
-  if (values.cardNumber && values.cardNumber.length !== 16) {
-    errors.cardNumber = 'Invalid phone number, must be 16 digits';
-  }
-  if (values.cardNumber && isNaN(Number(values.cardNumber))) {
-    errors.cardNumber = 'Must be a number';
   }
   return errors;
 };

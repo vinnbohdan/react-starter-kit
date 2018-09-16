@@ -170,7 +170,7 @@ class ProductDetails extends React.Component {
                   size="large"
                   variant="contained"
                   color="secondary">
-                  To cart
+                    View cart
                 </Button>
               </GridListTile>
             </GridList>

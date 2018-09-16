@@ -8,7 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import connect from 'react-redux/es/connect/connect';
 import { bindActionCreators } from 'redux';
-// import qs from 'qs';
+import qs from 'qs';
 import * as specificationsActions from '../../actions/specifications';
 import styles from './styles';
 
@@ -69,25 +69,24 @@ class Specification extends React.Component {
     const params = {};
     params.filter = this.state.checked || {};
     params.page = 1;
-    // const query = qs.stringify(params);
-    // console.log(query);
-    // return this.context
-    //   .fetch(`/api/specifications/?${query}`, { method: 'GET' })
-    //   .then(async res => {
-    //     const resText = await res.text();
-    //     const json = resText ? JSON.parse(resText) : [];
-    //     if (res.status >= 400) {
-    //       console.error(json);
-    //       return [];
-    //     }
-    //
-    //     return json.map(item => ({
-    //       id: item.id,
-    //       name: item.name,
-    //       cost: item.cost,
-    //     }));
-    //   }, console.error)
-    //   .catch(console.error);
+    const query = qs.stringify(params);
+    return this.context
+      .fetch(`/api/specifications/?${query}`, { method: 'GET' })
+      .then(async res => {
+        const resText = await res.text();
+        const json = resText ? JSON.parse(resText) : [];
+        if (res.status >= 400) {
+          console.error(json);
+          return [];
+        }
+
+        return json.map(item => ({
+          id: item.id,
+          name: item.name,
+          cost: item.cost,
+        }));
+      }, console.error)
+      .catch(console.error);
   };
 
   handleClickReset = () => {

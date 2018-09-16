@@ -5,6 +5,7 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import styles from './styles';
+import Link from '../../components/Link';
 
 class CartBadge extends React.Component {
   static propTypes = {
@@ -20,6 +21,8 @@ class CartBadge extends React.Component {
     return (
       <IconButton aria-label="Cart">
         <Badge
+          component={Link}
+          to="/shoppingCart"
           badgeContent={items}
           color="primary"
           classes={{ badge: classes.badge }}
