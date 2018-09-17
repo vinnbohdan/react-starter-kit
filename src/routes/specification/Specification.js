@@ -62,7 +62,6 @@ class Specification extends React.Component {
 
   render() {
     const { classes, specifications } = this.props;
-    // console.log(this.props);
     return (
       <React.Fragment>
         {specifications.map(specName => (

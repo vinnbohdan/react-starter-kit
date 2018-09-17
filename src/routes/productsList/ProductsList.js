@@ -57,7 +57,7 @@ class ProductsList extends React.Component {
     const { getAllProducts, subcategoryId } = this.props;
     getAllProducts(subcategoryId, query);
     this.setState(
-      { isChecked: propFromFilter.isChecked, checked: propFromFilter.filter },
+      { isChecked: {...propFromFilter.isChecked}, checked: {...propFromFilter.filter} },
     );
   };
   render() {
