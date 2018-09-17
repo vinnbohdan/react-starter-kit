@@ -73,30 +73,17 @@ class ShoppingCart extends React.Component {
               </TableRow>
             ))}
             <TableRow>
-              {listItems.length === 0 ? (
-                <Button
-                  disabled
-                  component={Link}
-                  to="/CheckOut"
-                  variant="extendedFab"
-                  aria-label="Add to shopping cart"
-                  className={classes.button}
-                >
-                  CheckOut
-                  <AddShoppingCartIcon />
-                </Button>
-              ) : (
-                <Button
-                  component={Link}
-                  to="/CheckOut"
-                  variant="extendedFab"
-                  aria-label="Add to shopping cart"
-                  className={classes.button}
-                >
-                  CheckOut
-                  <AddShoppingCartIcon />
-                </Button>
-              )}
+              <Button
+                disabled={!listItems.length}
+                component={Link}
+                to="/CheckOut"
+                variant="extendedFab"
+                aria-label="Add to shopping cart"
+                className={classes.button}
+              >
+                CheckOut
+                <AddShoppingCartIcon />
+              </Button>
             </TableRow>
           </TableBody>
         </Table>
