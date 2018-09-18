@@ -48,6 +48,7 @@ class ProductDetails extends React.Component {
         id: PropTypes.number.isRequired,
         status: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
         quantity: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
@@ -65,6 +66,14 @@ class ProductDetails extends React.Component {
   componentDidMount() {
     const { getproductDetails, productId } = this.props;
     getproductDetails(productId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.productId !== nextProps.productId){
+      const { getproductDetails, resetproductDetails } = this.props;
+      resetproductDetails();
+      getproductDetails(nextProps.productId);
+    }
   }
 
   componentWillUnmount() {
@@ -115,28 +124,28 @@ class ProductDetails extends React.Component {
 
   render() {
       return (
-      <div>
+      <div style={{ margin: '50px' }}>
         {this.props.productDetails.map(item =>
         <GridList key={item.id}>
           <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-            <Typography variant="title" color="textPrimary" gutterBottom>
+            <Typography classes={{root: this.props.classes.root}} variant="display1" paragraph color="secondary" gutterBottom>
               {item.name}
             </Typography>
+          </GridListTile >
+          <GridListTile style={{ height: '400px', textAlign: 'center' }} classes={{imgFullWidth: this.props.classes.imgFullWidth}}>
+            <img src={item.icon} alt="" />
           </GridListTile>
-          <GridListTile>
-            <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" alt="" />
-          </GridListTile>
-          <GridListTile>
-            <Typography variant="title" color="textPrimary" gutterBottom>
+          <GridListTile style={{ height: '400px'}}>
+            <Typography style={{margin: '60px 0px 60px 0'}} variant="title" color="textPrimary" gutterBottom>
               {item.description}
             </Typography>
             <GridList>
               <GridListTile cols={2} style={{ height: 'auto' }}>
-                <Typography variant="title" color="secondary" gutterBottom>
+                <Typography variant="body2" color="secondary" gutterBottom>
                   {item.quantity} items {item.status}
                 </Typography>
               </GridListTile>
-              <GridListTile>
+              <GridListTile style={{ width: '40%' }}>
                 <TextField
                   id="number"
                   defaultValue={this.state.itemsquantity}
@@ -147,7 +156,7 @@ class ProductDetails extends React.Component {
                   margin="dense"
                 />
                 <TextField
-                  className={this.props.classes.formControl}
+                  className={this.props.classes.textField}
                   value={item.cost * this.state.itemsquantity}
                   onChange={this.handleChange('numberformat')}
                   id="formatted-numberformat-input"
@@ -156,10 +165,11 @@ class ProductDetails extends React.Component {
                   }}
                 />
               </GridListTile>
-              <GridListTile>
+              <GridListTile style={{ width: '60%' }}>
                 <Button
                   onClick={this.handleClick(item.id, item.name, item.cost, this.state.itemsquantity)}
                   size="large"
+                  classes={{sizeLarge: this.props.classes.sizeLarge}}
                   variant="contained"
                   color="secondary">
                     Add to cart
@@ -168,6 +178,7 @@ class ProductDetails extends React.Component {
                   component={Link}
                   to='/shoppingCart'
                   size="large"
+                  classes={{sizeLarge: this.props.classes.sizeLarge}}
                   variant="contained"
                   color="secondary">
                     View cart

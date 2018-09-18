@@ -1,14 +1,15 @@
-module.exports = theme => ({
+module.exports = () => ({
   appBar: {
     position: 'relative',
   },
   toolbarTitle: {
     flex: 1,
   },
-  margin: {
-    margin: theme.spacing.unit,
+  badge: {
+    marginLeft: 15,
+    right: 0,
   },
   button: {
-    margin: theme.spacing.unit,
+    marginLeft: 15,
   },
 });

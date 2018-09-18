@@ -15,20 +15,10 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="center"
-        >
+        <Grid container direction="row" justify="flex-end" alignItems="center">
           <CategoriesList />
         </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-around"
-          alignItems="center"
-        >
+        <Grid container direction="row" justify="flex-end" alignItems="center">
           <HotProductsList />
         </Grid>
       </React.Fragment>

@@ -12,10 +12,9 @@ class AsyncSelectPromises extends Component<*, State> {
   };
   state = { value: null };
 
-  // componentWillReceiveProps() {
-  //   this.setState({ value: '' });
-  //   console.log(this);
-  // }
+  componentWillReceiveProps() {
+    this.setState({ value: null });
+  }
 
   getNames = inputValue => {
     const params = {
@@ -44,7 +43,6 @@ class AsyncSelectPromises extends Component<*, State> {
       .catch(console.error);
   };
   handleInputChange = value => {
-    // console.log(value);
     this.setState({
       value,
     });

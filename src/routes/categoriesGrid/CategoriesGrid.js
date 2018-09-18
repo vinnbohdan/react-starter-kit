@@ -31,6 +31,7 @@ class CategoriesGrid extends React.Component {
   render() {
     return (
       <GridList
+        style={{ marginTop: '50px'}}
         cols={3}>
         {this.props.allCategories.map(item =>
           <GridListTile key={item.id}>

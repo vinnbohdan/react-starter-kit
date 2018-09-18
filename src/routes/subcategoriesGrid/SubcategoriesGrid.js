@@ -32,7 +32,9 @@ class SubcategoriesGrid extends React.Component {
   render() {
     return (
       <GridList
-        cols={3}>
+        cols={3}
+        style={{ marginTop: '50px'}}
+      >
         {this.props.allSubcategories.map(item =>
           <GridListTile key={item.id}>
             <Subcategory name={item.name} id={item.id}/>

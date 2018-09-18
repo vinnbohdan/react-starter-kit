@@ -42,7 +42,7 @@ class Header extends React.Component {
             </Button>
           </Typography>
           <AsyncSelectPromises />
-          <CartBadge />
+          <CartBadge classes={{ badge: this.props.classes.badge }} />
           <Button>Contacts</Button>
         </Toolbar>
       </AppBar>
