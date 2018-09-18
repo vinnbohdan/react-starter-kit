@@ -5,15 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
 import connect from 'react-redux/es/connect/connect';
 import { bindActionCreators } from 'redux';
-import qs from 'qs';
 import * as specificationsActions from '../../actions/specifications';
 import styles from './styles';
 
 class Specification extends React.Component {
   static propTypes = {
+    isCheckedValue: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+    checkedValue: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
     subcategoryId: PropTypes.number.isRequired,
     specifications: PropTypes.arrayOf(
       PropTypes.shape({
@@ -21,6 +21,7 @@ class Specification extends React.Component {
         value: PropTypes.arrayOf(PropTypes.string),
       }),
     ).isRequired,
+    onFilterChange: PropTypes.func.isRequired,
     getSpecifications: PropTypes.func.isRequired,
     resetSpecifications: PropTypes.func.isRequired,
     classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -28,12 +29,6 @@ class Specification extends React.Component {
   static contextTypes = {
     fetch: PropTypes.func,
   };
-
-  state = {
-    isChecked: {},
-    checked: {},
-  };
-
   componentDidMount() {
     const { getSpecifications, subcategoryId } = this.props;
     getSpecifications(subcategoryId);
@@ -42,11 +37,10 @@ class Specification extends React.Component {
     const { resetSpecifications } = this.props;
     resetSpecifications();
   }
-
   handleChange = (specName, specValue) => () => {
-    const checked = this.state.checked || {};
-    const specValueArray = this.state.checked[specName] || [];
-    const isChecked = this.state.isChecked || {};
+    const checked = this.props.checkedValue || {};
+    const specValueArray = this.props.checkedValue[specName] || [];
+    const isChecked = this.props.isCheckedValue || {};
     isChecked[specValue] = !isChecked[specValue];
     if (isChecked[specValue]) {
       specValueArray.push(specValue);
@@ -59,49 +53,18 @@ class Specification extends React.Component {
         checked[specName] = specValueArray;
       }
     }
-    this.setState({
-      isChecked,
-      checked,
-    });
-  };
-
-  handleClickApply = () => {
     const params = {};
-    params.filter = this.state.checked || {};
+    params.filter = checked || {};
     params.page = 1;
-    const query = qs.stringify(params);
-    return this.context
-      .fetch(`/api/specifications/?${query}`, { method: 'GET' })
-      .then(async res => {
-        const resText = await res.text();
-        const json = resText ? JSON.parse(resText) : [];
-        if (res.status >= 400) {
-          console.error(json);
-          return [];
-        }
-
-        return json.map(item => ({
-          id: item.id,
-          name: item.name,
-          cost: item.cost,
-        }));
-      }, console.error)
-      .catch(console.error);
+    params.isChecked = isChecked;
+    this.props.onFilterChange(params);
   };
 
-  handleClickReset = () => {
-    const checked = {};
-    const isChecked = {};
-    this.setState({
-      isChecked,
-      checked,
-    });
-  };
   render() {
-    // console.log(this.state);
     const { classes, specifications } = this.props;
+    // console.log(this.props);
     return (
-      <div>
+      <React.Fragment>
         {specifications.map(specName => (
           <div key={specName.key} className={classes.formControl}>
             <FormLabel component="legend">
@@ -111,7 +74,7 @@ class Specification extends React.Component {
                   <div key={specValue}>
                     <Checkbox
                       color="primary"
-                      checked={this.state.isChecked[specValue] || false}
+                      checked={this.props.isCheckedValue[specValue] || false}
                       name={specValue}
                       onChange={this.handleChange(specName.key, specValue)}
                       value={specValue}
@@ -123,22 +86,7 @@ class Specification extends React.Component {
             </FormLabel>
           </div>
         ))}
-        <Button
-          disabled={_.isEmpty(this.state.checked)}
-          variant="contained"
-          className={classes.button}
-          onClick={this.handleClickApply}
-        >
-          Apply
-        </Button>
-        <Button
-          variant="contained"
-          className={classes.button}
-          onClick={this.handleClickReset}
-        >
-          Reset
-        </Button>
-      </div>
+      </React.Fragment>
     );
   }
 }

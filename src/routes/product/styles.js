@@ -4,6 +4,11 @@ module.exports = theme => ({
   },
   cardHeader: {
     backgroundColor: theme.palette.grey[200],
+    display: 'block',
+    width: '400px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden !important',
+    textOverflow: 'ellipsis',
   },
   cardPricing: {
     display: 'flex',

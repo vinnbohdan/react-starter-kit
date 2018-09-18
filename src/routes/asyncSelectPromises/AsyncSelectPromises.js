@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
 import AsyncSelect from 'react-select/lib/Async';
 import { buildQuery } from '../../helpers';
 import history from '../../history';
+import styles from './styles';
 
-export default class AsyncSelectPromises extends Component<*, State> {
+class AsyncSelectPromises extends Component<*, State> {
   static contextTypes = {
     fetch: PropTypes.func,
   };
@@ -45,6 +47,7 @@ export default class AsyncSelectPromises extends Component<*, State> {
     history.push(`/products/${value.id}`);
   };
   render() {
+    const { classes } = this.props;
     return (
       <AsyncSelect
         cacheOptions
@@ -54,18 +57,23 @@ export default class AsyncSelectPromises extends Component<*, State> {
         getOptionValue={option => option.id}
         value={this.state.value}
         loadOptions={this.getNames}
-        theme={theme => ({
-          ...theme,
-          borderRadius: 100,
-          width: 250,
-          colors: {
-            ...theme.colors,
-            text: 'orangered',
-            primary25: 'hotpink',
-            primary: 'white',
-          },
-        })}
+        className={classes.search}
+        // theme={theme => ({
+        //   ...theme,
+        //   borderRadius: 100,
+        //   width: 450,
+        //   colors: {
+        //     ...theme.colors,
+        //     text: 'orangered',
+        //     primary25: 'hotpink',
+        //     primary: 'white',
+        //   },
+        // })}
       />
     );
   }
 }
+AsyncSelectPromises.propTypes = {
+  classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+export default withStyles(styles)(AsyncSelectPromises);

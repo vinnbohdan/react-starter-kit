@@ -44,9 +44,6 @@ class Header extends React.Component {
           <AsyncSelectPromises />
           <CartBadge />
           <Button>Contacts</Button>
-          <Button color="primary" variant="outlined">
-            Login
-          </Button>
         </Toolbar>
       </AppBar>
     );

@@ -40,6 +40,9 @@ class HotProductsList extends React.Component {
   }
 
   handleSortChange = propFromMenu => {
+    const query = qs.stringify({sort: propFromMenu.sort});
+    const { getHotProducts } = this.props;
+    getHotProducts(query);
     this.setState(
       { sort: propFromMenu.sort, item: propFromMenu.item },
     );

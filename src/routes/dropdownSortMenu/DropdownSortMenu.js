@@ -15,7 +15,7 @@ class DropdownSortMenu extends React.Component {
         value = { name: 'ASC' };
         break;
       case '4':
-        value = { name: 'DECS' };
+        value = { name: 'DESC' };
         break;
       default:
         value = { cost: 'ASC' };
