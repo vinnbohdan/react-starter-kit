@@ -21,6 +21,7 @@ class ProductsList extends React.Component {
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
       }),
     ).isRequired,
@@ -74,10 +75,11 @@ class ProductsList extends React.Component {
         <main className={this.props.classes.content}>
           <DropdownSortMenu select={this.state.item} onSortChanged={this.handleSortChange}/>
           <GridList
-            cols={3}>
+            cols={3}
+            cellHeight={300}>
             {this.props.allProducts.map(item =>
               <GridListTile key={item.id}>
-                <Product id={item.id} name={item.name} cost={item.cost} />
+                <Product id={item.id} name={item.name} cost={item.cost} icon={item.icon}/>
               </GridListTile>)}
           </GridList>
         </main>

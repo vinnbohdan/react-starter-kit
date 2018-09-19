@@ -11,12 +11,16 @@ class AsyncSelectPromises extends Component<*, State> {
     fetch: PropTypes.func,
   };
   state = { value: null };
+
+  // componentWillReceiveProps() {
+  //   this.setState({ value: '' });
+  //   console.log(this);
+  // }
+
   getNames = inputValue => {
     const params = {
-      // sort: '-createDate',
       page: 1,
       search: inputValue.trim(),
-      // perPage: 10,
     };
     const query = buildQuery(params);
 
@@ -58,17 +62,6 @@ class AsyncSelectPromises extends Component<*, State> {
         value={this.state.value}
         loadOptions={this.getNames}
         className={classes.search}
-        // theme={theme => ({
-        //   ...theme,
-        //   borderRadius: 100,
-        //   width: 450,
-        //   colors: {
-        //     ...theme.colors,
-        //     text: 'orangered',
-        //     primary25: 'hotpink',
-        //     primary: 'white',
-        //   },
-        // })}
       />
     );
   }

@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import CardHeader from '@material-ui/core/CardHeader/CardHeader';
 import Link from '../../components/Link';
 import styles from './styles';
 
@@ -15,19 +15,23 @@ class Product extends React.Component {
     id: PropTypes.number.isRequired,
     cost: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
 
   render() {
     return (
       <Card className={this.props.classes.card}>
-        <CardHeader
+        <CardMedia
+          className={this.props.classes.media}
+          image={this.props.icon}
           title={this.props.name}
-          titleTypographyProps={{ align: 'center' }}
-          className={this.props.classes.cardHeader}
         />
-        <CardContent className={this.props.classes.cardPricing}>
-          <Typography gutterBottom variant="headline" component="h1">
+        <CardContent>
+          <Typography gutterBottom variant="headline" component="h3" noWrap>
+            {this.props.name}
+          </Typography>
+          <Typography gutterBottom variant="subheading" component="h1">
             {this.props.cost} UAH
           </Typography>
         </CardContent>
